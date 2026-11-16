@@ -1,13 +1,51 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
+import java.util.Scanner;
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Calculatrice calc = new Calculatrice();
+        boolean continuer = true;
+
+        System.out.println("=== Calculatrice Java ===");
+
+        while (continuer) {
+            System.out.println("\n1. Addition");
+            System.out.println("2. Soustraction");
+            System.out.println("3. Multiplication");
+            System.out.println("4. Division");
+            System.out.println("0. Quitter");
+            System.out.print("Votre choix : ");
+            int choix = sc.nextInt();
+
+            if (choix == 0) {
+                continuer = false;
+                System.out.println("Au revoir !");
+                continue;
+            }
+            if (choix < 1 || choix > 4) {
+                System.out.println("Choix invalide.");
+                continue;
+            }
+
+            System.out.print("Premier nombre : ");
+            double a = sc.nextDouble();
+            System.out.print("Deuxième nombre : ");
+            double b = sc.nextDouble();
+
+            try {
+                double resultat = 0;
+                switch (choix) {
+                    case 1: resultat = calc.additionner(a, b); break;
+                    case 2: resultat = calc.soustraire(a, b); break;
+                    case 3: resultat = calc.multiplier(a, b); break;
+                    case 4: resultat = calc.diviser(a, b); break;
+                }
+                System.out.println("Résultat : " + resultat);
+            } catch (ArithmeticException e) {
+                System.out.println("Erreur : " + e.getMessage());
+            }
+        }
+        sc.close();
     }
 }
